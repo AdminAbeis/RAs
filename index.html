@@ -51,7 +51,9 @@ h1{font-family:var(--serifa);font-weight:600;font-size:clamp(2.6rem,8.5vw,5.2rem
 .registro{display:grid;grid-template-columns:10rem 1fr 9.5rem;gap:.4rem 1.6rem;
   align-items:start;padding:1.3rem 0;border-bottom:1px solid var(--linha)}
 .marcacao{font-size:.84rem;color:var(--grafite);line-height:1.4}
+.marcacao .quando{display:block;margin-top:.1rem}
 .marcacao .repo{display:block;color:var(--tinta);font-size:.8rem;margin-top:.2rem}
+.professor{font-size:.82rem;color:var(--grafite);margin:.4rem 0 0}
 .titulo{font-family:var(--serifa);font-size:1.22rem;font-weight:400;line-height:1.25;margin:0 0 .28rem}
 .titulo a{text-decoration:none}
 .titulo a:hover{text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--carimbo)}
@@ -63,6 +65,9 @@ h1{font-family:var(--serifa);font-weight:600;font-size:clamp(2.6rem,8.5vw,5.2rem
 .saidas a{color:var(--carimbo);text-decoration:none;border-bottom:1px solid transparent}
 .saidas a:hover{border-bottom-color:var(--carimbo)}
 .saidas .inativo{color:var(--grafite)}
+.saidas .como-link{font:inherit;font-size:.82rem;color:var(--tinta);background:none;border:0;
+  padding:0;text-align:left;cursor:pointer;border-bottom:1px solid var(--linha);align-self:flex-start}
+.saidas .como-link:hover{color:var(--carimbo);border-bottom-color:var(--carimbo)}
 .vazio{padding:2.5rem 0;color:var(--grafite);font-family:var(--serifa);font-size:1.1rem}
 
 /* ---------- seções ---------- */
@@ -262,16 +267,31 @@ const TRABALHOS = [
     site: true,
     titulo: "Prevenção de golpes financeiros digitais e conscientização sobre apostas online",
     disciplina: "PACEx",
+    periodo: "4º período",
     ano: 2026,
+    professor: "Prof. Dr. José Luiz Borsatto Junior",
     sinopse: "Projeto de extensão sobre phishing, golpes do Pix, falsa venda e os mecanismos matemáticos das apostas, voltado ao público idoso.",
     etiquetas: ["Documento", "Site"]
+  },
+  {
+    repo: "coso",
+    site: true,
+    titulo: "COSO — Committee of Sponsoring Organizations",
+    disciplina: "Gestão de Risco e Compliance",
+    periodo: "4º período",
+    ano: 2026,
+    professor: "Profª Edileusa Cristina Borçato",
+    sinopse: "Estrutura de controles internos e gestão de riscos do COSO e sua aplicação à governança das organizações.",
+    etiquetas: ["Site"]
   },
   {
     repo: "MobileFleet",
     site: true,
     titulo: "Mobile Fleet – Lubrificação Express",
     disciplina: "Modelagem de Negócios",
+    periodo: "3º período",
     ano: 2026,
+    professor: "Prof. Marlon Luiz Ganancio",
     sinopse: "Modelo de negócio de troca de óleo móvel: Canvas, análise estratégica, licenciamento ambiental e projeção financeira.",
     etiquetas: ["Documento", "Site", "Apresentação"]
   },
@@ -280,7 +300,9 @@ const TRABALHOS = [
     site: true,
     titulo: "Mobile Fleet — circularidade e reciclagem de OLUC",
     disciplina: "PACEx",
+    periodo: "3º período",
     ano: 2026,
+    professor: "",
     sinopse: "Desdobramento do Mobile Fleet pela economia circular, com destinação do óleo lubrificante usado ou contaminado.",
     etiquetas: ["Documento", "Site"]
   },
@@ -289,7 +311,9 @@ const TRABALHOS = [
     site: true,
     titulo: "Motivação 3.0 aplicada ao caso NexaControl",
     disciplina: "Psicologia Organizacional",
+    periodo: "3º período",
     ano: 2026,
+    professor: "Prof. Me. Raphael Barbosa",
     sinopse: "Diagnóstico organizacional pelos pilares de autonomia, maestria e propósito, com plano de intervenção.",
     etiquetas: ["Documento", "Site"]
   },
@@ -298,7 +322,9 @@ const TRABALHOS = [
     site: true,
     titulo: "Apuração de custos da Delta Ltda.",
     disciplina: "Contabilidade e Análise de Custos",
+    periodo: "3º período",
     ano: 2026,
+    professor: "",
     sinopse: "Classificação e apropriação de custos, indicadores e demonstrativos, com site de apresentação do exercício.",
     etiquetas: ["Exercício", "Site"]
   },
@@ -307,25 +333,20 @@ const TRABALHOS = [
     site: true,
     titulo: "Avaliação de desempenho por escalas gráficas",
     disciplina: "Gestão de Pessoas",
+    periodo: "3º período",
     ano: 2026,
+    professor: "",
     sinopse: "Métodos de avaliação de desempenho e construção do instrumento por escalas gráficas.",
     etiquetas: ["Estudo"]
-  },
-  {
-    repo: "coso",
-    site: true,
-    titulo: "COSO — Committee of Sponsoring Organizations",
-    disciplina: "A definir",
-    ano: 2026,
-    sinopse: "Estrutura de controles internos e gestão de riscos do COSO e sua aplicação à governança das organizações.",
-    etiquetas: ["Site"]
   },
   {
     repo: "tdo",
     site: true,
     titulo: "Teoria do Desenvolvimento Organizacional",
-    disciplina: "A definir",
-    ano: 2026,
+    disciplina: "Mercadologia",
+    periodo: "2º período",
+    ano: 2025,
+    professor: "Profª Ana Paula Lima Silva",
     sinopse: "Fundamentos do DO: mudança planejada, cultura organizacional e tipos de intervenção.",
     etiquetas: ["Site"]
   },
@@ -334,7 +355,9 @@ const TRABALHOS = [
     site: true,
     titulo: "Arquivo de trabalhos e gerador de capa",
     disciplina: "Apoio",
+    periodo: "",
     ano: 2026,
+    professor: "",
     sinopse: "Esta página: índice das entregas, lista de RAs da turma e montagem da capa no padrão da UNIPAR.",
     etiquetas: ["Site"]
   }
@@ -406,7 +429,13 @@ function desenharIndice(filtro) {
 
     const marca = document.createElement("div");
     marca.className = "marcacao";
-    marca.append(`${t.disciplina} · ${t.ano}`);
+    marca.append(t.disciplina);
+    if (t.periodo || t.ano) {
+      const quando = document.createElement("span");
+      quando.className = "quando";
+      quando.textContent = [t.periodo, t.ano].filter(Boolean).join(" · ");
+      marca.appendChild(quando);
+    }
     const repo = document.createElement("span");
     repo.className = "repo";
     repo.textContent = `/${t.repo}`;
@@ -425,6 +454,13 @@ function desenharIndice(filtro) {
     sin.className = "sinopse";
     sin.textContent = t.sinopse;
     meio.append(tit, sin);
+
+    if (t.professor) {
+      const prof = document.createElement("p");
+      prof.className = "professor";
+      prof.textContent = t.professor;
+      meio.appendChild(prof);
+    }
 
     if (t.etiquetas && t.etiquetas.length) {
       const tags = document.createElement("div");
@@ -459,6 +495,24 @@ function desenharIndice(filtro) {
     c.rel = "noopener";
     c.textContent = "Ver repositório";
     saidas.appendChild(c);
+
+    if (t.disciplina !== "Apoio") {
+      const usar = document.createElement("button");
+      usar.type = "button";
+      usar.className = "como-link";
+      usar.textContent = "Usar na capa";
+      usar.addEventListener("click", () => {
+        $("#titulo").value = t.titulo;
+        $("#disciplina").value = t.disciplina;
+        $("#professor").value = t.professor || "";
+        $("#periodo").value = t.periodo || "";
+        $("#ano").value = t.ano || "";
+        $("#subtitulo").value = "";
+        montarCapa();
+        $("#capa").scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+      saidas.appendChild(usar);
+    }
 
     reg.append(marca, meio, saidas);
     alvo.appendChild(reg);
