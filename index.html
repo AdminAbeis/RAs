@@ -225,7 +225,16 @@ footer a:hover{border-color:var(--carimbo);color:var(--carimbo)}
             <input type="text" id="professor" placeholder="Prof. Dr. Fulano de Tal">
           </label>
           <label class="campo">Período
-            <input type="text" id="periodo" value="4º período">
+            <select id="periodo">
+              <option>1º Período</option>
+              <option>2º Período</option>
+              <option>3º Período</option>
+              <option selected>4º Período</option>
+              <option>5º Período</option>
+              <option>6º Período</option>
+              <option>7º Período</option>
+              <option>8º Período</option>
+            </select>
           </label>
           <label class="campo">Ano
             <input type="number" id="ano" value="2026" min="2020" max="2099">
@@ -267,7 +276,7 @@ const TRABALHOS = [
     site: true,
     titulo: "Prevenção de golpes financeiros digitais e conscientização sobre apostas online",
     disciplina: "PACEx",
-    periodo: "4º período",
+    periodo: "4º Período",
     ano: 2026,
     professor: "Prof. Dr. José Luiz Borsatto Junior",
     sinopse: "Projeto de extensão sobre phishing, golpes do Pix, falsa venda e os mecanismos matemáticos das apostas, voltado ao público idoso.",
@@ -278,7 +287,7 @@ const TRABALHOS = [
     site: true,
     titulo: "COSO — Committee of Sponsoring Organizations",
     disciplina: "Gestão de Risco e Compliance",
-    periodo: "4º período",
+    periodo: "4º Período",
     ano: 2026,
     professor: "Profª Edileusa Cristina Borçato",
     sinopse: "Estrutura de controles internos e gestão de riscos do COSO e sua aplicação à governança das organizações.",
@@ -289,7 +298,7 @@ const TRABALHOS = [
     site: true,
     titulo: "Mobile Fleet – Lubrificação Express",
     disciplina: "Modelagem de Negócios",
-    periodo: "3º período",
+    periodo: "3º Período",
     ano: 2026,
     professor: "Prof. Marlon Luiz Ganancio",
     sinopse: "Modelo de negócio de troca de óleo móvel: Canvas, análise estratégica, licenciamento ambiental e projeção financeira.",
@@ -300,9 +309,9 @@ const TRABALHOS = [
     site: true,
     titulo: "Mobile Fleet — circularidade e reciclagem de OLUC",
     disciplina: "PACEx",
-    periodo: "3º período",
+    periodo: "3º Período",
     ano: 2026,
-    professor: "",
+    professor: "Prof. Dr. José Luiz Borsatto Junior",
     sinopse: "Desdobramento do Mobile Fleet pela economia circular, com destinação do óleo lubrificante usado ou contaminado.",
     etiquetas: ["Documento", "Site"]
   },
@@ -311,7 +320,7 @@ const TRABALHOS = [
     site: true,
     titulo: "Motivação 3.0 aplicada ao caso NexaControl",
     disciplina: "Psicologia Organizacional",
-    periodo: "3º período",
+    periodo: "3º Período",
     ano: 2026,
     professor: "Prof. Me. Raphael Barbosa",
     sinopse: "Diagnóstico organizacional pelos pilares de autonomia, maestria e propósito, com plano de intervenção.",
@@ -322,9 +331,9 @@ const TRABALHOS = [
     site: true,
     titulo: "Apuração de custos da Delta Ltda.",
     disciplina: "Contabilidade e Análise de Custos",
-    periodo: "3º período",
+    periodo: "3º Período",
     ano: 2026,
-    professor: "",
+    professor: "Profª Edileusa Cristina Borçato",
     sinopse: "Classificação e apropriação de custos, indicadores e demonstrativos, com site de apresentação do exercício.",
     etiquetas: ["Exercício", "Site"]
   },
@@ -333,9 +342,9 @@ const TRABALHOS = [
     site: true,
     titulo: "Avaliação de desempenho por escalas gráficas",
     disciplina: "Gestão de Pessoas",
-    periodo: "3º período",
+    periodo: "3º Período",
     ano: 2026,
-    professor: "",
+    professor: "Profª Elizangela Maria Menegassi de Lima",
     sinopse: "Métodos de avaliação de desempenho e construção do instrumento por escalas gráficas.",
     etiquetas: ["Estudo"]
   },
@@ -344,7 +353,7 @@ const TRABALHOS = [
     site: true,
     titulo: "Teoria do Desenvolvimento Organizacional",
     disciplina: "Mercadologia",
-    periodo: "2º período",
+    periodo: "2º Período",
     ano: 2025,
     professor: "Profª Ana Paula Lima Silva",
     sinopse: "Fundamentos do DO: mudança planejada, cultura organizacional e tipos de intervenção.",
@@ -505,7 +514,7 @@ function desenharIndice(filtro) {
         $("#titulo").value = t.titulo;
         $("#disciplina").value = t.disciplina;
         $("#professor").value = t.professor || "";
-        $("#periodo").value = t.periodo || "";
+        if (t.periodo) $("#periodo").value = t.periodo;
         $("#ano").value = t.ano || "";
         $("#subtitulo").value = "";
         montarCapa();
@@ -659,6 +668,7 @@ function atualizar() {
 }
 
 $("#formulario").addEventListener("input", montarCapa);
+$("#periodo").addEventListener("change", montarCapa);
 
 async function copiar(texto, botao, rotulo) {
   if (!texto) {
