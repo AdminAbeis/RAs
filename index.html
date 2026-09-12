@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AdminAbeis — Arquivo de trabalhos · Administração UNIPAR</title>
+<meta name="description" content="Índice dos trabalhos acadêmicos do curso de Administração da UNIPAR — Eduardo Henrique Zuffo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --papel:#E7E8E1;
+  --papel-alto:#F2F3ED;
+  --tinta:#16211D;
+  --grafite:#5C6863;
+  --carimbo:#8E2F2A;
+  --linha:#C6CABF;
+  --serifa:"Fraunces",Georgia,serif;
+  --sans:"IBM Plex Sans",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--papel);color:var(--tinta);
+  font-family:var(--sans);font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.folha{max-width:1080px;margin:0 auto;padding:0 clamp(1.1rem,4vw,3rem)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--carimbo);outline-offset:3px;border-radius:2px}
+
+/* ---------- topo ---------- */
+.topo{padding:clamp(3rem,9vw,6rem) 0 2.4rem;border-bottom:1.5px solid var(--tinta)}
+.topo-grade{display:grid;grid-template-columns:1fr auto;gap:2.5rem;align-items:end}
+.identificacao{font-size:.88rem;color:var(--grafite);margin:0 0 1.1rem;letter-spacing:.01em}
+h1{
+  font-family:var(--serifa);font-weight:600;
+  font-size:clamp(2.6rem,8.5vw,5.2rem);line-height:.95;
+  letter-spacing:-.025em;margin:0 0 1rem;font-variation-settings:"SOFT" 20,"WONK" 1;
+}
+.linha-fina{font-family:var(--serifa);font-size:clamp(1.05rem,2.4vw,1.35rem);
+  font-weight:400;color:var(--grafite);margin:0;max-width:34ch;line-height:1.45}
+.selo{width:150px;height:150px;flex:none;color:var(--carimbo);transform:rotate(-7deg)}
+.selo .contagem{font-family:var(--serifa);font-size:38px;font-weight:600}
+.selo .rotulo{font-family:var(--sans);font-size:9.5px;letter-spacing:.14em}
+.selo .circular{font-family:var(--sans);font-size:9px;letter-spacing:.19em;font-weight:500}
+
+/* ---------- filtros ---------- */
+.filtros{display:flex;flex-wrap:wrap;gap:.45rem;padding:1.6rem 0 .4rem}
+.filtro{
+  font:inherit;font-size:.84rem;cursor:pointer;
+  background:none;border:1px solid var(--linha);color:var(--grafite);
+  padding:.34rem .8rem;border-radius:999px;transition:.14s;
+}
+.filtro:hover{border-color:var(--grafite);color:var(--tinta)}
+.filtro[aria-pressed="true"]{background:var(--tinta);border-color:var(--tinta);color:var(--papel)}
+
+/* ---------- índice de trabalhos ---------- */
+.periodo{margin:2.6rem 0 0}
+.periodo h2{
+  font-family:var(--sans);font-size:.82rem;font-weight:600;color:var(--grafite);
+  letter-spacing:.06em;margin:0 0 .2rem;padding-bottom:.5rem;border-bottom:1px solid var(--linha);
+}
+.registro{
+  display:grid;grid-template-columns:11rem 1fr auto;gap:.4rem 1.6rem;align-items:baseline;
+  padding:1.15rem 0;border-bottom:1px solid var(--linha);text-decoration:none;
+}
+.registro:hover .titulo{text-decoration:underline;text-underline-offset:3px}
+.disciplina{font-size:.84rem;color:var(--grafite);line-height:1.35}
+.titulo{font-family:var(--serifa);font-size:1.22rem;font-weight:400;line-height:1.25;margin:0 0 .28rem}
+.sinopse{font-size:.9rem;color:var(--grafite);margin:0;max-width:62ch}
+.etiquetas{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.5rem}
+.etiqueta{font-size:.72rem;color:var(--grafite);border:1px solid var(--linha);
+  padding:.1rem .46rem;border-radius:3px;background:var(--papel-alto)}
+.situacao{font-size:.8rem;color:var(--grafite);white-space:nowrap}
+.situacao.entregue::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;
+  background:var(--carimbo);margin-right:.45rem;vertical-align:middle}
+.vazio{padding:2.5rem 0;color:var(--grafite);font-family:var(--serifa);font-size:1.1rem}
+
+/* ---------- gerador de capa ---------- */
+.capa{margin:5rem 0 0;padding:2.4rem 0 0;border-top:1.5px solid var(--tinta)}
+.capa h2{font-family:var(--serifa);font-weight:600;font-size:clamp(1.7rem,4vw,2.4rem);
+  letter-spacing:-.02em;margin:0 0 .4rem;line-height:1.1}
+.capa .intro{color:var(--grafite);margin:0 0 2rem;max-width:56ch}
+.oficina{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2.4rem}
+fieldset{border:0;padding:0;margin:0 0 1.4rem;min-width:0}
+legend{font-size:.82rem;font-weight:600;color:var(--grafite);padding:0 0 .55rem}
+label.campo{display:block;margin-bottom:.85rem;font-size:.82rem;color:var(--grafite)}
+input[type=text],input[type=number],select{
+  display:block;width:100%;margin-top:.28rem;font:inherit;font-size:.95rem;color:var(--tinta);
+  background:var(--papel-alto);border:1px solid var(--linha);border-radius:3px;padding:.5rem .6rem;
+}
+input:focus,select:focus{border-color:var(--grafite)}
+.pessoas{display:grid;gap:.1rem;max-height:19rem;overflow:auto;padding-right:.3rem}
+.pessoa{display:flex;gap:.6rem;align-items:baseline;padding:.34rem .45rem;border-radius:3px;cursor:pointer;font-size:.9rem}
+.pessoa:hover{background:var(--papel-alto)}
+.pessoa input{margin:0;accent-color:var(--carimbo)}
+.pessoa .ra{margin-left:auto;font-size:.8rem;color:var(--grafite);font-variant-numeric:tabular-nums}
+.saida{
+  background:var(--papel-alto);border:1px solid var(--linha);border-radius:3px;
+  padding:1.8rem 1.4rem;text-align:center;font-family:var(--serifa);font-size:.84rem;
+  line-height:1.85;white-space:pre-wrap;word-break:break-word;margin:0;min-height:16rem;
+}
+.acoes{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.9rem}
+.botao{
+  font:inherit;font-size:.88rem;cursor:pointer;border-radius:3px;padding:.55rem 1.1rem;
+  background:var(--tinta);color:var(--papel);border:1px solid var(--tinta);transition:.14s;
+}
+.botao:hover{background:var(--carimbo);border-color:var(--carimbo)}
+.botao.secundario{background:none;color:var(--tinta)}
+.botao.secundario:hover{background:var(--tinta);color:var(--papel)}
+.aviso{font-size:.82rem;color:var(--grafite);margin:.7rem 0 0}
+
+/* ---------- rodapé ---------- */
+footer{margin-top:5rem;padding:2rem 0 3rem;border-top:1px solid var(--linha);
+  font-size:.84rem;color:var(--grafite);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+footer a{text-decoration:none;border-bottom:1px solid var(--linha)}
+footer a:hover{border-color:var(--carimbo);color:var(--carimbo)}
+
+@media (max-width:860px){
+  .topo-grade{grid-template-columns:1fr;align-items:start;gap:1.8rem}
+  .selo{width:112px;height:112px}
+  .registro{grid-template-columns:1fr;gap:.3rem}
+  .situacao{margin-top:.3rem}
+  .oficina{grid-template-columns:1fr;gap:1.8rem}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+@media print{.filtros,.capa,footer{display:none}}
+</style>
+</head>
+<body>
+
+<div class="folha">
+
+  <header class="topo">
+    <div class="topo-grade">
+      <div>
+        <p class="identificacao">Universidade Paranaense · Curso de Administração · Campus Umuarama</p>
+        <h1>Arquivo de<br>trabalhos</h1>
+        <p class="linha-fina">Relatórios, projetos de extensão e estudos de caso produzidos ao longo da graduação, reunidos em um só lugar.</p>
+      </div>
+      <svg class="selo" viewBox="0 0 150 150" role="img" aria-labelledby="selo-titulo">
+        <title id="selo-titulo">Selo do arquivo</title>
+        <defs>
+          <path id="arco" d="M75,75 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"></path>
+        </defs>
+        <circle cx="75" cy="75" r="71" fill="none" stroke="currentColor" stroke-width="1"></circle>
+        <circle cx="75" cy="75" r="66" fill="none" stroke="currentColor" stroke-width="2.5"></circle>
+        <text class="circular" fill="currentColor">
+          <textPath href="#arco" startOffset="50%" text-anchor="middle">ADMINISTRAÇÃO · UNIPAR · UMUARAMA</textPath>
+        </text>
+        <text class="contagem" x="75" y="82" text-anchor="middle" fill="currentColor" id="selo-contagem">0</text>
+        <text class="rotulo" x="75" y="99" text-anchor="middle" fill="currentColor">TRABALHOS</text>
+      </svg>
+    </div>
+  </header>
+
+  <nav class="filtros" id="filtros" aria-label="Filtrar por disciplina"></nav>
+
+  <main id="indice"></main>
+
+  <!-- ====== Gerador de capa ABNT ====== -->
+  <section class="capa" id="gerador">
+    <h2>Montar a capa</h2>
+    <p class="intro">Marque quem está no grupo, preencha os dados do trabalho e copie a capa pronta no padrão da UNIPAR. Os nomes saem em ordem alfabética e os cursos são preenchidos sozinhos.</p>
+
+    <div class="oficina">
+      <form id="formulario" autocomplete="off">
+        <fieldset>
+          <legend>Dados do trabalho</legend>
+          <label class="campo">Título
+            <input type="text" id="titulo" value="PREVENÇÃO DE GOLPES FINANCEIROS DIGITAIS">
+          </label>
+          <label class="campo">Subtítulo ou etapa <span aria-hidden="true">(opcional)</span>
+            <input type="text" id="subtitulo" placeholder="Etapa 1 – Exploração">
+          </label>
+          <label class="campo">Disciplina ou modalidade
+            <input type="text" id="disciplina" value="Projeto de Atividade Curricular de Extensão (PACEx)">
+          </label>
+          <label class="campo">Professor
+            <input type="text" id="professor" placeholder="Prof. Dr. Fulano de Tal">
+          </label>
+          <label class="campo">Período
+            <input type="text" id="periodo" value="4º período">
+          </label>
+          <label class="campo">Ano
+            <input type="number" id="ano" value="2026" min="2020" max="2099">
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Integrantes</legend>
+          <div class="pessoas" id="pessoas"></div>
+          <div class="acoes">
+            <button type="button" class="botao secundario" id="limpar">Desmarcar todos</button>
+          </div>
+        </fieldset>
+      </form>
+
+      <div>
+        <pre class="saida" id="saida" aria-live="polite"></pre>
+        <div class="acoes">
+          <button type="button" class="botao" id="copiar">Copiar capa</button>
+          <button type="button" class="botao secundario" id="baixar">Baixar .txt</button>
+        </div>
+        <p class="aviso" id="aviso">Cole no Word, selecione tudo e aplique Arial 12, espaçamento 1,5, centralizado.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Eduardo Henrique Zuffo · Administração UNIPAR</span>
+    <span><a href="https://github.com/AdminAbeis">github.com/AdminAbeis</a></span>
+  </footer>
+
+</div>
+
+<script>
+/* ==========================================================================
+   1. TRABALHOS — para adicionar um novo, copie um bloco e edite.
+      situacao: "entregue" | "em andamento"
+      link: endereço do trabalho (pasta do repositório, site, PDF...)
+   ========================================================================== */
+const TRABALHOS = [
+  {
+    titulo: "Prevenção de golpes financeiros digitais e conscientização sobre apostas online",
+    disciplina: "PACEx",
+    periodo: "4º período",
+    ano: 2026,
+    sinopse: "Projeto de extensão sobre phishing, golpes do Pix, falsa venda e os mecanismos matemáticos das apostas, com público-alvo idoso.",
+    etiquetas: ["Documento", "Site"],
+    situacao: "entregue",
+    link: "#"
+  },
+  {
+    titulo: "Mobile Fleet – Lubrificação Express",
+    disciplina: "Modelagem de Negócios",
+    periodo: "4º período",
+    ano: 2026,
+    sinopse: "Modelo de negócio de troca de óleo móvel: Canvas, análise estratégica, licenciamento ambiental e projeção financeira.",
+    etiquetas: ["Documento", "Site", "Apresentação"],
+    situacao: "entregue",
+    link: "#"
+  },
+  {
+    titulo: "Motivação 3.0 aplicada ao caso NexaControl",
+    disciplina: "Psicologia Organizacional",
+    periodo: "4º período",
+    ano: 2026,
+    sinopse: "Diagnóstico organizacional pelos pilares de autonomia, maestria e propósito, com plano de intervenção.",
+    etiquetas: ["Documento", "Site"],
+    situacao: "entregue",
+    link: "#"
+  },
+  {
+    titulo: "Apuração de custos da Delta Ltda.",
+    disciplina: "Contabilidade e Análise de Custos",
+    periodo: "4º período",
+    ano: 2026,
+    sinopse: "Exercício completo de classificação, apropriação de custos e indicadores, com site de apresentação.",
+    etiquetas: ["Exercício", "Site"],
+    situacao: "entregue",
+    link: "#"
+  },
+  {
+    titulo: "Relatórios 1 a 3 — Design Thinking, validação e Triple Bottom Line",
+    disciplina: "Modelagem de Negócios",
+    periodo: "4º período",
+    ano: 2026,
+    sinopse: "Série de relatórios sobre MVPs, Problem-Solution Fit, Product-Market Fit, escalabilidade e sustentabilidade.",
+    etiquetas: ["Relatório"],
+    situacao: "entregue",
+    link: "#"
+  },
+  {
+    titulo: "Avaliação de desempenho por escalas gráficas",
+    disciplina: "Gestão de Pessoas",
+    periodo: "4º período",
+    ano: 2026,
+    sinopse: "Estudo dos métodos de avaliação de desempenho e construção de instrumento por escalas gráficas.",
+    etiquetas: ["Estudo"],
+    situacao: "em andamento",
+    link: "#"
+  }
+];
+
+/* ==========================================================================
+   2. TURMA — nomes que aparecem no gerador de capa.
+      Atenção: este arquivo fica público no GitHub Pages. Se preferir não
+      expor os RAs dos colegas, apague a lista abaixo e deixe só o seu.
+   ========================================================================== */
+const TURMA = [
+  { nome: "Bento Piagentini Spancerski",        curso: "Administração",       ra: "60004920" },
+  { nome: "Brenda Rodrigues",                   curso: "Administração",       ra: "09056526" },
+  { nome: "Bruno Vallim Enumo",                 curso: "Administração",       ra: "60006167" },
+  { nome: "Diogo de Campos Martins",            curso: "Ciências Contábeis",  ra: "60007144" },
+  { nome: "Eduardo Henrique Zuffo",             curso: "Administração",       ra: "60009637" },
+  { nome: "Estevão Lucas da Rocha da Silva",    curso: "Administração",       ra: "60007800" },
+  { nome: "Gabriel Vasconcelos Ramos",          curso: "Administração",       ra: "60010028" },
+  { nome: "Giovana Paulini",                    curso: "Administração",       ra: "60007749" },
+  { nome: "Gustavo Gabriel dos Santos Sampaio", curso: "Administração",       ra: "60006885" },
+  { nome: "Igor Macedo Sampaio Souto",          curso: "Administração",       ra: "60005095" },
+  { nome: "Márcio Eller",                       curso: "Administração",       ra: "60007883" },
+  { nome: "Matheus Eller",                      curso: "Ciências Contábeis",  ra: "60005842" },
+  { nome: "Miguel de Lima Balani",              curso: "Administração",       ra: "60006229" },
+  { nome: "Renan Tuci Afonso",                  curso: "Ciências Contábeis",  ra: "60005425" }
+];
+
+const colator = new Intl.Collator("pt-BR");
+const $ = s => document.querySelector(s);
+
+/* ---------- índice ---------- */
+document.getElementById("selo-contagem").textContent = TRABALHOS.length;
+
+const disciplinas = [...new Set(TRABALHOS.map(t => t.disciplina))].sort(colator.compare);
+const filtros = $("#filtros");
+["Todos", ...disciplinas].forEach((d, i) => {
+  const b = document.createElement("button");
+  b.className = "filtro";
+  b.type = "button";
+  b.textContent = d;
+  b.setAttribute("aria-pressed", i === 0 ? "true" : "false");
+  b.addEventListener("click", () => {
+    filtros.querySelectorAll(".filtro").forEach(x => x.setAttribute("aria-pressed", "false"));
+    b.setAttribute("aria-pressed", "true");
+    desenharIndice(d === "Todos" ? null : d);
+  });
+  filtros.appendChild(b);
+});
+
+function desenharIndice(filtro) {
+  const alvo = $("#indice");
+  alvo.textContent = "";
+  const lista = filtro ? TRABALHOS.filter(t => t.disciplina === filtro) : TRABALHOS;
+
+  if (!lista.length) {
+    const p = document.createElement("p");
+    p.className = "vazio";
+    p.textContent = "Nenhum trabalho nesta disciplina ainda.";
+    alvo.appendChild(p);
+    return;
+  }
+
+  const grupos = {};
+  lista.forEach(t => {
+    const chave = `${t.periodo} · ${t.ano}`;
+    (grupos[chave] = grupos[chave] || []).push(t);
+  });
+
+  Object.keys(grupos).sort().reverse().forEach(chave => {
+    const sec = document.createElement("section");
+    sec.className = "periodo";
+    const h = document.createElement("h2");
+    h.textContent = chave;
+    sec.appendChild(h);
+
+    grupos[chave].forEach(t => {
+      const reg = document.createElement("a");
+      reg.className = "registro";
+      reg.href = t.link || "#";
+
+      const disc = document.createElement("span");
+      disc.className = "disciplina";
+      disc.textContent = t.disciplina;
+
+      const meio = document.createElement("div");
+      const tit = document.createElement("h3");
+      tit.className = "titulo";
+      tit.textContent = t.titulo;
+      const sin = document.createElement("p");
+      sin.className = "sinopse";
+      sin.textContent = t.sinopse;
+      meio.append(tit, sin);
+
+      if (t.etiquetas && t.etiquetas.length) {
+        const tags = document.createElement("div");
+        tags.className = "etiquetas";
+        t.etiquetas.forEach(e => {
+          const s = document.createElement("span");
+          s.className = "etiqueta";
+          s.textContent = e;
+          tags.appendChild(s);
+        });
+        meio.appendChild(tags);
+      }
+
+      const sit = document.createElement("span");
+      sit.className = "situacao" + (t.situacao === "entregue" ? " entregue" : "");
+      sit.textContent = t.situacao === "entregue" ? "Entregue" : "Em andamento";
+
+      reg.append(disc, meio, sit);
+      sec.appendChild(reg);
+    });
+
+    alvo.appendChild(sec);
+  });
+}
+desenharIndice(null);
+
+/* ---------- gerador de capa ---------- */
+const pessoas = $("#pessoas");
+[...TURMA].sort((a, b) => colator.compare(a.nome, b.nome)).forEach((p, i) => {
+  const l = document.createElement("label");
+  l.className = "pessoa";
+  const c = document.createElement("input");
+  c.type = "checkbox";
+  c.value = i;
+  c.checked = p.nome === "Eduardo Henrique Zuffo";
+  c.addEventListener("change", montarCapa);
+  const n = document.createElement("span");
+  n.textContent = p.nome;
+  const r = document.createElement("span");
+  r.className = "ra";
+  r.textContent = p.ra;
+  l.append(c, n, r);
+  l._dados = p;
+  pessoas.appendChild(l);
+});
+
+function selecionados() {
+  return [...pessoas.querySelectorAll("input:checked")]
+    .map(c => c.closest(".pessoa")._dados)
+    .sort((a, b) => colator.compare(a.nome, b.nome));
+}
+
+function montarCapa() {
+  const grupo = selecionados();
+  const cursos = [...new Set(grupo.map(p => p.curso))].sort(colator.compare);
+  const cabecaCursos = cursos.length > 1
+    ? "CURSOS DE " + cursos.join(" E ").toUpperCase()
+    : cursos.length ? "CURSO DE " + cursos[0].toUpperCase() : "CURSO DE ADMINISTRAÇÃO";
+
+  const linhas = ["UNIVERSIDADE PARANAENSE – UNIPAR", cabecaCursos, ""];
+
+  if (!grupo.length) {
+    linhas.push("(marque ao menos um integrante)", "");
+  } else {
+    grupo.forEach(p => {
+      linhas.push(cursos.length > 1
+        ? `${p.nome.toUpperCase()} — ${p.curso} — RA ${p.ra}`
+        : `${p.nome.toUpperCase()} — RA ${p.ra}`);
+    });
+    linhas.push("");
+  }
+
+  const disciplina = $("#disciplina").value.trim();
+  const titulo = $("#titulo").value.trim();
+  const subtitulo = $("#subtitulo").value.trim();
+  const professor = $("#professor").value.trim();
+  const periodo = $("#periodo").value.trim();
+
+  if (disciplina) linhas.push(disciplina.toUpperCase(), "");
+  if (titulo) linhas.push(titulo.toUpperCase());
+  if (subtitulo) linhas.push(subtitulo);
+  linhas.push("");
+  if (periodo) linhas.push(periodo);
+  if (professor) linhas.push(`Professor: ${professor}`);
+  linhas.push("", "UMUARAMA – PR", String($("#ano").value || new Date().getFullYear()));
+
+  $("#saida").textContent = linhas.join("\n");
+}
+
+$("#formulario").addEventListener("input", montarCapa);
+$("#limpar").addEventListener("click", () => {
+  pessoas.querySelectorAll("input").forEach(c => { c.checked = false; });
+  montarCapa();
+});
+
+$("#copiar").addEventListener("click", async () => {
+  const botao = $("#copiar");
+  try {
+    await navigator.clipboard.writeText($("#saida").textContent);
+    botao.textContent = "Capa copiada";
+  } catch {
+    botao.textContent = "Copie manualmente do quadro";
+  }
+  setTimeout(() => { botao.textContent = "Copiar capa"; }, 2200);
+});
+
+$("#baixar").addEventListener("click", () => {
+  const blob = new Blob([$("#saida").textContent], { type: "text/plain;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "capa.txt";
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+
+montarCapa();
+</script>
+</body>
+</html>
