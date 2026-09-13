@@ -200,6 +200,7 @@ footer a:hover{border-color:var(--carimbo);color:var(--carimbo)}
         </select>
       </label>
       <button type="button" class="botao" id="copiar-integrantes">Copiar integrantes</button>
+      <button type="button" class="botao secundario" id="marcar">Marcar todos</button>
       <button type="button" class="botao secundario" id="desmarcar">Desmarcar todos</button>
     </div>
   </section>
@@ -604,6 +605,12 @@ document.querySelectorAll("[data-curso]").forEach(b => {
     b.setAttribute("aria-pressed", "true");
     desenharTurma();
   });
+});
+
+$("#marcar").addEventListener("click", () => {
+  visiveis().forEach(p => marcados.add(p.ra));
+  desenharTurma();
+  atualizar();
 });
 
 $("#desmarcar").addEventListener("click", () => {
