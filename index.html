@@ -46,6 +46,9 @@ h1{font-family:var(--serifa);font-weight:600;font-size:clamp(2.6rem,8.5vw,5.2rem
   border:1px solid var(--linha);color:var(--grafite);padding:.34rem .8rem;border-radius:999px;transition:.14s}
 .filtro:hover{border-color:var(--grafite);color:var(--tinta)}
 .filtro[aria-pressed="true"]{background:var(--tinta);border-color:var(--tinta);color:var(--papel)}
+.estado{font-size:.8rem;color:var(--grafite);margin:0 0 .4rem}
+.registro.pendente .titulo a{color:var(--grafite)}
+.registro.pendente .marcacao{color:var(--carimbo)}
 
 /* ---------- índice ---------- */
 .registro{display:grid;grid-template-columns:10rem 1fr 9.5rem;gap:.4rem 1.6rem;
@@ -164,6 +167,7 @@ footer a:hover{border-color:var(--carimbo);color:var(--carimbo)}
   </header>
 
   <nav class="filtros" id="filtros" aria-label="Filtrar por disciplina"></nav>
+  <p class="estado" id="estado" aria-live="polite"></p>
   <main id="indice"></main>
 
   <!-- ====== Integrantes ====== -->
@@ -263,95 +267,85 @@ footer a:hover{border-color:var(--carimbo);color:var(--carimbo)}
 
 <script>
 /* ==========================================================================
-   1. TRABALHOS
-      repo  nome exato do repositório no GitHub
-      site  true  = GitHub Pages ligado (mostra o link "Abrir site")
-            false = só o código
-      Para adicionar um novo, copie um bloco inteiro e edite.
+   1. FICHAS DOS TRABALHOS
+      A lista de repositórios vem do próprio GitHub — qualquer repositório
+      novo aparece sozinho nesta página, sem mexer no código.
+
+      Aqui ficam só os dados que o GitHub não sabe: título por extenso,
+      disciplina, período, professor. A chave é o nome exato do repositório.
+      Um repositório sem ficha aparece assim mesmo, marcado como "Sem ficha" —
+      é só acrescentar o bloco dele quando der.
+
+      Sem ficha, o resumo usa a descrição do repositório (aquele campo "About"
+      no canto direito da página do GitHub), então vale preencher por lá.
    ========================================================================== */
 const USUARIO = "AdminAbeis";
 
-const TRABALHOS = [
-  {
-    repo: "GuiaProva1Solano",
-    site: true,
+const FICHAS = {
+  "GuiaProva1Solano": {
     titulo: "Guia de estudo para a 1ª prova",
     disciplina: "Administração da Operação de Produção",
     periodo: "4º Período",
     ano: 2026,
     professor: "Prof. Solano Ribeiro Soares",
     sinopse: "Material de revisão com os conteúdos cobrados na primeira prova da disciplina.",
-    etiquetas: ["Guia de estudo", "Site"]
+    etiquetas: ["Guia de estudo"]
   },
-  {
-    repo: "Golpes",
-    site: true,
+  "Golpes": {
     titulo: "Prevenção de golpes financeiros digitais e conscientização sobre apostas online",
     disciplina: "PACEx",
     periodo: "4º Período",
     ano: 2026,
     professor: "Prof. Dr. José Luiz Borsatto Junior",
     sinopse: "Projeto de extensão sobre phishing, golpes do Pix, falsa venda e os mecanismos matemáticos das apostas, voltado ao público idoso.",
-    etiquetas: ["Documento", "Site"]
+    etiquetas: ["Documento"]
   },
-  {
-    repo: "coso",
-    site: true,
+  "coso": {
     titulo: "COSO — Committee of Sponsoring Organizations",
     disciplina: "Gestão de Risco e Compliance",
     periodo: "4º Período",
     ano: 2026,
     professor: "Profª Edileusa Cristina Borçato",
     sinopse: "Estrutura de controles internos e gestão de riscos do COSO e sua aplicação à governança das organizações.",
-    etiquetas: ["Site"]
+    etiquetas: []
   },
-  {
-    repo: "MobileFleet",
-    site: true,
+  "MobileFleet": {
     titulo: "Mobile Fleet – Lubrificação Express",
     disciplina: "Modelagem de Negócios",
     periodo: "3º Período",
     ano: 2026,
     professor: "Prof. Marlon Luiz Ganancio",
     sinopse: "Modelo de negócio de troca de óleo móvel: Canvas, análise estratégica, licenciamento ambiental e projeção financeira.",
-    etiquetas: ["Documento", "Site", "Apresentação"]
+    etiquetas: ["Documento", "Apresentação"]
   },
-  {
-    repo: "MobileFleetCircular",
-    site: true,
+  "MobileFleetCircular": {
     titulo: "Mobile Fleet — circularidade e reciclagem de OLUC",
     disciplina: "PACEx",
     periodo: "3º Período",
     ano: 2026,
     professor: "Prof. Dr. José Luiz Borsatto Junior",
     sinopse: "Desdobramento do Mobile Fleet pela economia circular, com destinação do óleo lubrificante usado ou contaminado.",
-    etiquetas: ["Documento", "Site"]
+    etiquetas: ["Documento"]
   },
-  {
-    repo: "NexaControl",
-    site: true,
+  "NexaControl": {
     titulo: "Motivação 3.0 aplicada ao caso NexaControl",
     disciplina: "Psicologia Organizacional",
     periodo: "3º Período",
     ano: 2026,
     professor: "Prof. Me. Raphael Barbosa",
     sinopse: "Diagnóstico organizacional pelos pilares de autonomia, maestria e propósito, com plano de intervenção.",
-    etiquetas: ["Documento", "Site"]
+    etiquetas: ["Documento"]
   },
-  {
-    repo: "Delta-Contabilidade",
-    site: true,
+  "Delta-Contabilidade": {
     titulo: "Apuração de custos da Delta Ltda.",
     disciplina: "Contabilidade e Análise de Custos",
     periodo: "3º Período",
     ano: 2026,
     professor: "Profª Edileusa Cristina Borçato",
     sinopse: "Classificação e apropriação de custos, indicadores e demonstrativos, com site de apresentação do exercício.",
-    etiquetas: ["Exercício", "Site"]
+    etiquetas: ["Exercício"]
   },
-  {
-    repo: "GestaoPessoas",
-    site: true,
+  "GestaoPessoas": {
     titulo: "Avaliação de desempenho por escalas gráficas",
     disciplina: "Gestão de Pessoas",
     periodo: "3º Período",
@@ -360,29 +354,28 @@ const TRABALHOS = [
     sinopse: "Métodos de avaliação de desempenho e construção do instrumento por escalas gráficas.",
     etiquetas: ["Estudo"]
   },
-  {
-    repo: "tdo",
-    site: true,
+  "tdo": {
     titulo: "Teoria do Desenvolvimento Organizacional",
     disciplina: "Mercadologia",
     periodo: "2º Período",
     ano: 2025,
     professor: "Profª Ana Paula Lima Silva",
     sinopse: "Fundamentos do DO: mudança planejada, cultura organizacional e tipos de intervenção.",
-    etiquetas: ["Site"]
+    etiquetas: []
   },
-  {
-    repo: "RAs",
-    site: true,
+  "RAs": {
     titulo: "Arquivo de trabalhos e gerador de capa",
     disciplina: "Apoio",
     periodo: "",
     ano: 2026,
     professor: "",
     sinopse: "Esta página: índice das entregas, lista de RAs da turma e montagem da capa no padrão da UNIPAR.",
-    etiquetas: ["Site"]
+    etiquetas: []
   }
-];
+};
+
+/* Repositórios que não devem aparecer na lista (nome exato). */
+const OCULTAR = ["AdminAbeis", ".github"];
 
 /* ==========================================================================
    2. TURMA
@@ -413,24 +406,88 @@ const $ = s => document.querySelector(s);
 const urlRepo = r => `https://github.com/${USUARIO}/${r}`;
 const urlSite = r => `https://${USUARIO.toLowerCase()}.github.io/${r}/`;
 
-/* ---------- índice ---------- */
-$("#selo-contagem").textContent = TRABALHOS.length;
+/* ---------- índice: lista vinda do GitHub, fichas vindas daqui ---------- */
+const CACHE = "adminabeis:repos";
+const VALIDADE = 6 * 60 * 60 * 1000;   /* 6 horas */
 
-const disciplinas = [...new Set(TRABALHOS.map(t => t.disciplina))].sort(colator.compare);
-const filtros = $("#filtros");
-["Todos", ...disciplinas].forEach((d, i) => {
-  const b = document.createElement("button");
-  b.className = "filtro";
-  b.type = "button";
-  b.textContent = d;
-  b.setAttribute("aria-pressed", i === 0 ? "true" : "false");
-  b.addEventListener("click", () => {
-    filtros.querySelectorAll(".filtro").forEach(x => x.setAttribute("aria-pressed", "false"));
-    b.setAttribute("aria-pressed", "true");
-    desenharIndice(d === "Todos" ? null : d);
+let TRABALHOS = [];
+let filtroAtual = null;
+
+function fichaVazia(repo) {
+  return {
+    titulo: repo.name,
+    disciplina: "Sem ficha",
+    periodo: "",
+    ano: repo.pushed_at ? Number(repo.pushed_at.slice(0, 4)) : null,
+    professor: "",
+    sinopse: repo.description || "Sem descrição no GitHub. Preencha o campo “About” do repositório ou crie a ficha nesta página.",
+    etiquetas: [],
+    semFicha: true
+  };
+}
+
+function montar(repos) {
+  return repos
+    .filter(r => !r.fork && !r.archived && !OCULTAR.includes(r.name))
+    .map(r => {
+      const f = FICHAS[r.name];
+      const base = f ? { ...f, semFicha: false } : fichaVazia(r);
+      if (f && !base.sinopse) base.sinopse = r.description || "";
+      return {
+        ...base,
+        repo: r.name,
+        site: r.has_pages === true,
+        atualizado: r.pushed_at || ""
+      };
+    });
+}
+
+/* Sem resposta do GitHub, mostra o que está cadastrado aqui. */
+function listaLocal() {
+  return Object.keys(FICHAS)
+    .filter(nome => !OCULTAR.includes(nome))
+    .map(nome => ({ ...FICHAS[nome], repo: nome, site: true, atualizado: "", semFicha: false }));
+}
+
+function ordenar(lista) {
+  const periodoNum = p => parseInt(p, 10) || 0;
+  return lista.sort((a, b) =>
+    (b.ano || 0) - (a.ano || 0) ||
+    periodoNum(b.periodo) - periodoNum(a.periodo) ||
+    (b.atualizado || "").localeCompare(a.atualizado || "") ||
+    colator.compare(a.titulo, b.titulo)
+  );
+}
+
+function aplicar(lista, recado) {
+  TRABALHOS = ordenar(lista);
+  $("#selo-contagem").textContent = TRABALHOS.length;
+  $("#estado").textContent = recado;
+  desenharFiltros();
+  desenharIndice(filtroAtual);
+}
+
+function desenharFiltros() {
+  const filtros = $("#filtros");
+  filtros.textContent = "";
+  const disciplinas = [...new Set(TRABALHOS.map(t => t.disciplina))].sort(colator.compare);
+  if (filtroAtual && !disciplinas.includes(filtroAtual)) filtroAtual = null;
+
+  ["Todos", ...disciplinas].forEach(d => {
+    const b = document.createElement("button");
+    b.className = "filtro";
+    b.type = "button";
+    b.textContent = d;
+    const ativo = (d === "Todos" && !filtroAtual) || d === filtroAtual;
+    b.setAttribute("aria-pressed", ativo ? "true" : "false");
+    b.addEventListener("click", () => {
+      filtroAtual = d === "Todos" ? null : d;
+      desenharFiltros();
+      desenharIndice(filtroAtual);
+    });
+    filtros.appendChild(b);
   });
-  filtros.appendChild(b);
-});
+}
 
 function desenharIndice(filtro) {
   const alvo = $("#indice");
@@ -484,10 +541,12 @@ function desenharIndice(filtro) {
       meio.appendChild(prof);
     }
 
-    if (t.etiquetas && t.etiquetas.length) {
+    const marcas = [...(t.etiquetas || [])];
+    if (t.site) marcas.push("Site");
+    if (marcas.length) {
       const tags = document.createElement("div");
       tags.className = "etiquetas";
-      t.etiquetas.forEach(e => {
+      marcas.forEach(e => {
         const s = document.createElement("span");
         s.className = "etiqueta";
         s.textContent = e;
@@ -518,7 +577,7 @@ function desenharIndice(filtro) {
     c.textContent = "Ver repositório";
     saidas.appendChild(c);
 
-    if (t.disciplina !== "Apoio") {
+    if (!t.semFicha && t.disciplina !== "Apoio") {
       const usar = document.createElement("button");
       usar.type = "button";
       usar.className = "como-link";
@@ -536,11 +595,54 @@ function desenharIndice(filtro) {
       saidas.appendChild(usar);
     }
 
+    if (t.semFicha) reg.classList.add("pendente");
     reg.append(marca, meio, saidas);
     alvo.appendChild(reg);
   });
 }
-desenharIndice(null);
+
+function guardar(repos) {
+  try {
+    localStorage.setItem(CACHE, JSON.stringify({ quando: Date.now(), repos }));
+  } catch (e) { /* navegador sem armazenamento: segue sem cache */ }
+}
+
+function guardado() {
+  try {
+    const bruto = localStorage.getItem(CACHE);
+    if (!bruto) return null;
+    const dados = JSON.parse(bruto);
+    if (Date.now() - dados.quando > VALIDADE) return null;
+    return dados.repos;
+  } catch (e) { return null; }
+}
+
+async function sincronizar() {
+  const cache = guardado();
+  if (cache) {
+    aplicar(montar(cache), "Lista do GitHub (consulta recente guardada no navegador).");
+    return;
+  }
+  try {
+    const resposta = await fetch(
+      `https://api.github.com/users/${USUARIO}/repos?per_page=100&sort=pushed`,
+      { headers: { Accept: "application/vnd.github+json" } }
+    );
+    if (!resposta.ok) throw new Error(resposta.status);
+    const repos = await resposta.json();
+    if (!Array.isArray(repos)) throw new Error("resposta inesperada");
+    guardar(repos);
+    const semFicha = montar(repos).filter(t => t.semFicha).length;
+    aplicar(montar(repos), semFicha
+      ? `Lista do GitHub · ${semFicha} ${semFicha === 1 ? "repositório ainda sem ficha" : "repositórios ainda sem ficha"}.`
+      : "Lista do GitHub, atualizada agora.");
+  } catch (e) {
+    aplicar(listaLocal(), "Não foi possível consultar o GitHub agora — mostrando a lista cadastrada nesta página.");
+  }
+}
+
+aplicar(listaLocal(), "Consultando o GitHub…");
+sincronizar();
 
 /* ---------- integrantes ---------- */
 const marcados = new Set(["60009637"]);
